@@ -118,3 +118,10 @@ desktop.ini
 *.orig
 *.rej
 
+
+# Template repositories
+ovu/templates/
+
+# Backup files
+*.tar.gz
+backup-*
