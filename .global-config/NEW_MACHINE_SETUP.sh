@@ -156,16 +156,16 @@ clone_repositories() {
     
     cd ~/projects/ovu
     
-    # Clone global config first
-    if [ ! -d ".global-config" ]; then
-        print_info "Cloning global config..."
-        cd ~/projects
-        git clone https://github.com/noambroner/global-config.git .global-config 2>/dev/null || {
-            print_warning "global-config repository not found on GitHub. Skipping..."
-        }
+    # Clone data-projects (includes global config)
+    if [ ! -d ~/projects/.git ]; then
+        print_info "Cloning data-projects repository..."
+        cd ~
+        git clone https://github.com/noambroner/data-projects.git projects
         cd ~/projects/ovu
+        print_success "data-projects cloned"
     else
-        print_success "global-config already exists"
+        print_success "projects directory already exists"
+        cd ~/projects/ovu
     fi
     
     # Clone ULM

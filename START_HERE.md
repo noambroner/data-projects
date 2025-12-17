@@ -1,6 +1,6 @@
-# 🚀 OVU Project - Start Here!
+# 🚀 Data Projects - Start Here!
 
-## ברוכים הבאים לפרויקט OVU!
+## ברוכים הבאים!
 
 זהו מדריך ההתחלה המהירה שלך לעבודה עם הפרויקט.
 

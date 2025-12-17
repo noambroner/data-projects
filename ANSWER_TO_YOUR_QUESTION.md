@@ -116,12 +116,13 @@ sync-all pull
 ### אופציה 1: סקריפט אוטומטי (מומלץ!)
 
 ```bash
+git clone https://github.com/noambroner/data-projects.git ~/projects
 cd ~/projects/.global-config
 ./NEW_MACHINE_SETUP.sh
 ```
 
 הסקריפט יעשה **הכל** בשבילך:
-- ✅ יתקין Git + GitHub CLI
+- ✅ יתקין Git + GitHub CLI (אם לא מותקנים)
 - ✅ יגדיר את Git עם שם ואימייל שלך
 - ✅ יתחבר ל-GitHub
 - ✅ ישכפל את כל ה-repositories

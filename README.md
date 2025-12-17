@@ -1,6 +1,6 @@
-# 🚀 OVU Projects - Global Repository
+# 🚀 Data Projects - Global Repository
 
-This repository contains the **global configuration, scripts, and documentation** for all OVU projects.
+This repository contains the **global configuration, scripts, and documentation** for all data projects.
 
 ---
 
@@ -26,10 +26,10 @@ projects/
 
 ```bash
 # Clone this repository
-git clone https://github.com/noambroner/ovu-projects.git ~/projects
+git clone https://github.com/noambroner/data-projects.git ~/projects
 cd ~/projects
 
-# Run setup script to initialize OVU projects
+# Run setup script to initialize OVU project
 cd ovu
 ./scripts/setup-worktrees.sh
 
@@ -83,15 +83,19 @@ cd .global-config
 
 ---
 
-## 📦 OVU Projects
+## 📦 Projects
 
 This repository manages global files only. Individual projects are in separate repositories:
 
+### OVU Project:
 - **ovu-ulm** (User Login Manager): https://github.com/noambroner/ovu-ulm
 - **ovu-aam** (Admin Area Manager): https://github.com/noambroner/ovu-aam
 - **ovu-shared** (Shared Resources): https://github.com/noambroner/ovu-shared
 
 These are managed separately using Git worktrees and the `sync-all` tool.
+
+### Future Projects:
+More projects will be added here over time...
 
 ---
 
