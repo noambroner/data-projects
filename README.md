@@ -24,18 +24,44 @@ projects/
 
 ### First Time Setup (New Machine)
 
+#### Option 1: Let AI Do Everything (Recommended!) 🤖
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/noambroner/data-projects.git ~/projects
+
+# 2. Open in Cursor
+cd ~/projects
+cursor .
+
+# 3. Tell the AI:
+"התקן את הכל" (Hebrew)
+# or
+"Setup everything" (English)
+
+# ✨ AI will read .cursorrules and run everything automatically!
+```
+
+**See:** `SETUP_ON_NEW_MACHINE.md` for detailed instructions.
+
+---
+
+#### Option 2: Manual Setup
+
 ```bash
 # Clone this repository
 git clone https://github.com/noambroner/data-projects.git ~/projects
 cd ~/projects
 
-# Run setup script to initialize OVU project
-cd ovu
-./scripts/setup-worktrees.sh
+# Run setup script
+cd .global-config
+./NEW_MACHINE_SETUP.sh
 
-# Install sync-all command
-echo 'alias sync-all="$HOME/projects/.global-scripts/sync-all.sh"' >> ~/.bashrc
-source ~/.bashrc
+# This will install everything:
+# - Git + GitHub CLI
+# - All repositories (ovu-ulm, ovu-aam, ovu-shared)
+# - Worktrees
+# - sync-all & session-save commands
 ```
 
 ### Daily Workflow

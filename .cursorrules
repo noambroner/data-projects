@@ -1,0 +1,170 @@
+# Cursor AI Rules for Data Projects Repository
+
+## 🤖 CRITICAL: Auto-Setup Instructions
+
+**When this repository is cloned on a NEW machine, the AI MUST automatically:**
+
+### 1️⃣ Run Setup Script
+```bash
+cd ~/projects/.global-config
+chmod +x NEW_MACHINE_SETUP.sh
+./NEW_MACHINE_SETUP.sh
+```
+
+This script will:
+- Install Git + GitHub CLI
+- Configure Git with user info
+- Clone all project repositories (ovu-ulm, ovu-aam, ovu-shared)
+- Setup worktrees
+- Install sync-all and session-save aliases
+
+### 2️⃣ Install Aliases
+```bash
+# Add to ~/.bashrc and ~/.zshrc
+echo 'alias sync-all="$HOME/projects/.global-scripts/sync-all.sh"' >> ~/.bashrc
+echo 'alias sync-all="$HOME/projects/.global-scripts/sync-all.sh"' >> ~/.zshrc
+echo 'alias session-save="$HOME/projects/.global-scripts/session-save.sh"' >> ~/.bashrc
+echo 'alias session-save="$HOME/projects/.global-scripts/session-save.sh"' >> ~/.zshrc
+source ~/.bashrc
+```
+
+### 3️⃣ Verify Installation
+```bash
+# Test that everything works
+sync-all status
+session-save --help 2>/dev/null || echo "session-save ready"
+```
+
+---
+
+## 📋 How to Trigger Auto-Setup
+
+**User will say:**
+> "התקן את הכל" או "Setup everything" או "Run setup"
+
+**AI must respond:**
+1. Explain what will be done
+2. Run the setup script
+3. Install aliases
+4. Verify everything works
+5. Show user the next steps
+
+---
+
+## 🎯 Daily Workflow Commands
+
+### Morning Routine (Pull)
+```bash
+# 1. Pull global config
+cd ~/projects
+git pull
+
+# 2. Pull all project code
+sync-all pull
+
+# 3. Read yesterday's session
+cat ~/projects/ovu/docs/SESSION_HANDOFF.md
+
+# 4. Open Cursor
+cursor ~/projects/ovu/ovu-workspace.code-workspace
+```
+
+### Evening Routine (Push)
+```bash
+# 1. Save session
+session-save ~/projects/ovu
+
+# 2. Push all project code
+sync-all push "Description of what was done"
+
+# 3. Push global config (if changed)
+cd ~/projects
+git add .
+git commit -m "Update global config"
+git push
+```
+
+---
+
+## 🔧 Maintenance Commands
+
+### Check Status
+```bash
+sync-all status
+cd ~/projects && git status
+```
+
+### Update Everything
+```bash
+cd ~/projects && git pull
+sync-all pull
+```
+
+---
+
+## 🚨 Important Notes
+
+1. **data-projects** = Global configuration repository
+   - Contains: .global-config, .global-scripts, docs
+   - Sync: `git pull/push` in ~/projects
+
+2. **Individual projects** (ovu-ulm, ovu-aam, ovu-shared)
+   - Separate repositories
+   - Sync: `sync-all pull/push`
+
+3. **Session continuity**
+   - Use `session-save` at end of day
+   - Check `docs/SESSION_HANDOFF.md` at start of day
+
+---
+
+## 🎓 AI Behavior Rules
+
+1. **Always read SESSION_HANDOFF.md first** when starting work
+2. **Always suggest session-save** at end of work
+3. **Always check sync-all status** before major changes
+4. **Always commit after significant work**
+5. **Never skip the setup script** on new machines
+
+---
+
+## 📚 Documentation Locations
+
+- Quick Start: `~/projects/START_HERE.md`
+- Full Guide: `~/projects/.global-config/MULTI_MACHINE_WORKFLOW.md`
+- Quick Sync: `~/projects/.global-config/QUICK_SYNC_GUIDE.md`
+- Answer to Multi-Machine Question: `~/projects/ANSWER_TO_YOUR_QUESTION.md`
+
+---
+
+## ✅ Setup Checklist (for AI to verify)
+
+When user says "בדוק שהכל מוכן" or "Verify setup":
+
+```bash
+echo "🔍 Checking setup..."
+echo ""
+
+# Check Git
+git --version && echo "✅ Git installed" || echo "❌ Git missing"
+
+# Check GitHub CLI
+gh --version && echo "✅ GitHub CLI installed" || echo "❌ GitHub CLI missing"
+
+# Check aliases
+alias sync-all >/dev/null 2>&1 && echo "✅ sync-all alias" || echo "❌ sync-all missing"
+alias session-save >/dev/null 2>&1 && echo "✅ session-save alias" || echo "❌ session-save missing"
+
+# Check repositories
+[ -d ~/projects/ovu/worktrees/ulm-work ] && echo "✅ ULM worktree" || echo "❌ ULM missing"
+[ -d ~/projects/ovu/worktrees/aam-work ] && echo "✅ AAM worktree" || echo "❌ AAM missing"
+[ -d ~/projects/ovu/worktrees/shared-work ] && echo "✅ Shared worktree" || echo "❌ Shared missing"
+
+echo ""
+echo "✅ Setup verification complete!"
+```
+
+---
+
+*This file guides the AI to automatically setup and maintain the development environment across multiple machines.*
+

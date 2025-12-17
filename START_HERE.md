@@ -116,22 +116,39 @@ sync-all pull
 
 ## 🆕 התקנה במחשב חדש
 
-אם אתה מגיע למחשב חדש (או רוצה להתקין הכל במחשב נוסף):
+### 🤖 אופציה 1: תן ל-AI לעשות הכל (הכי קל!)
 
 ```bash
-# הורד את סקריפט ההתקנה
-curl -o setup.sh https://raw.githubusercontent.com/noambroner/global-config/main/NEW_MACHINE_SETUP.sh
+# 1. שכפל repository
+git clone https://github.com/noambroner/data-projects.git ~/projects
 
-# הרץ אותו
-chmod +x setup.sh
-./setup.sh
+# 2. פתח ב-Cursor
+cd ~/projects
+cursor .
+
+# 3. אמור ל-AI:
+"התקן את הכל"
 ```
 
-הסקריפט יתקין הכל אוטומטית:
+**✨ ה-AI יקרא את `.cursorrules` ויריץ הכל אוטומטית!**
+
+📖 **מדריך מפורט:** `SETUP_ON_NEW_MACHINE.md`
+
+---
+
+### 🔧 אופציה 2: ידני
+
+```bash
+git clone https://github.com/noambroner/data-projects.git ~/projects
+cd ~/projects/.global-config
+./NEW_MACHINE_SETUP.sh
+```
+
+הסקריפט יתקין:
 - ✅ Git + GitHub CLI
-- ✅ כל הrepositories
+- ✅ כל הrepositories (ovu-ulm, ovu-aam, ovu-shared)
 - ✅ Worktrees
-- ✅ הפקודה `sync-all`
+- ✅ `sync-all` & `session-save` commands
 
 ---
 
