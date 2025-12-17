@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הגדרת API Key</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .setup-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .status-banner {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .status-banner.success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+            color: #065f46;
+        }
+
+        .status-banner.warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            color: #92400e;
+        }
+
+        .status-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border-right: 4px solid #4f46e5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h3 {
+            color: #4f46e5;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box ol {
+            margin-right: 1.5rem;
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        .info-box a {
+            color: #4f46e5;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .form-description {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4f46e5;
+            border: 2px solid #4f46e5;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+            color: #065f46;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .input-hint {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <header>
+            <h1>🔑 הגדרת API Key</h1>
+            <p class="subtitle">הזן את מפתח ה-API שלך מ-API Ninjas</p>
+        </header>
+
+        <!-- סטטוס API Key -->
+        {% if api_key_exists %}
+        <div class="status-banner success">
+            <span class="status-icon">✅</span>
+            <div>
+                <strong>API Key מוגדר במערכת</strong>
+                <div style="font-weight: normal; margin-top: 0.5rem;">
+                    {% if api_key_preview %}
+                    <div style="margin-top: 0.5rem; font-family: monospace; background: rgba(0,0,0,0.1); padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-block;">
+                        🔑 {{ api_key_preview }}
+                    </div>
+                    {% endif %}
+                    <div style="margin-top: 0.5rem;">המערכת מוכנה לשימוש! אם תרצה לעדכן את המפתח, הזן מפתח חדש למטה.</div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="status-banner warning">
+            <span class="status-icon">⚠️</span>
+            <div>
+                <strong>API Key חסר</strong>
+                <div style="font-weight: normal; margin-top: 0.5rem;">
+                    יש להזין מפתח API כדי להשתמש במחשבון
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- מידע על API Ninjas -->
+        <div class="info-box">
+            <h3>💡 איך מקבלים API Key?</h3>
+            <ol>
+                <li>גש לאתר <a href="https://api-ninjas.com" target="_blank">API Ninjas</a></li>
+                <li>הירשם חינם (Sign Up)</li>
+                <li>העתק את ה-API Key שתקבל</li>
+                <li>הדבק אותו בטופס למטה</li>
+            </ol>
+            <p style="margin-top: 1rem;">
+                <strong>🎁 השירות חינמי</strong> - 50,000 קריאות בחודש ללא עלות!
+            </p>
+        </div>
+
+        <!-- טופס הזנת API Key -->
+        <div class="card">
+            <h2 style="color: #1f2937; margin-bottom: 1rem;">הזן API Key</h2>
+            <p class="form-description">
+                הזן את המפתח שקיבלת מ-API Ninjas. המפתח יישמר באפליקציה וישמש לכל החישובים.
+            </p>
+
+            <form id="apiKeyForm">
+                <div class="form-group">
+                    <label for="api_key">
+                        <span class="icon">🔑</span>
+                        API Key
+                    </label>
+                    <input 
+                        type="text" 
+                        id="api_key" 
+                        name="api_key" 
+                        placeholder="הדבק את המפתח כאן..." 
+                        required
+                        autocomplete="off"
+                        style="font-family: monospace; letter-spacing: 1px;"
+                    >
+                    <div class="input-hint">
+                        💡 המפתח נראה בדרך כלל כך: aB3xY9kL2mN5pQ8rT1vW4zC7eH0jK6fG
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn-primary">
+                        <span class="icon">💾</span>
+                        שמור API Key
+                    </button>
+                    <a href="/" class="btn-secondary">
+                        <span>🏠</span>
+                        חזור לדף הבית
+                    </a>
+                </div>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                <strong>✅ המפתח נשמר בהצלחה!</strong>
+                <p style="margin-top: 0.5rem; font-weight: normal;">
+                    הדף יתרענן אוטומטית בעוד 2 שניות...
+                </p>
+            </div>
+
+            <div id="error" class="alert alert-error hidden"></div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>שומר...</p>
+        </div>
+
+        <footer>
+            <p>מופעל על ידי <a href="https://api-ninjas.com" target="_blank">API Ninjas</a></p>
+            <p class="disclaimer">🔒 המפתח שלך מאוחסן באופן מקומי על המחשב שלך</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('apiKeyForm');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // הסתרת הודעות קודמות
+            error.classList.add('hidden');
+            successMessage.style.display = 'none';
+            loading.classList.remove('hidden');
+
+            const apiKey = document.getElementById('api_key').value.trim();
+
+            try {
+                const response = await fetch('/save-api-key', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ api_key: apiKey })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // הצגת הודעת הצלחה
+                    successMessage.style.display = 'block';
+                    form.style.display = 'none';
+                    
+                    // רענון הדף אחרי 2 שניות
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    // הצגת שגיאה
+                    showError(data.error);
+                }
+            } catch (err) {
+                showError('שגיאת תקשורת: ' + err.message);
+            } finally {
+                loading.classList.add('hidden');
+            }
+        });
+
+        function showError(message) {
+            error.textContent = '❌ ' + message;
+            error.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

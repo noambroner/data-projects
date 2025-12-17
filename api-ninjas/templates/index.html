@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מחשבון מס מכירה - ארצות הברית</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .api-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .api-banner-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        
+        .api-banner-content {
+            flex: 1;
+        }
+        
+        .api-banner-title {
+            font-weight: 700;
+            color: #92400e;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .api-banner-text {
+            color: #78350f;
+            line-height: 1.5;
+        }
+        
+        .api-banner-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .api-banner-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3);
+        }
+        
+        .help-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .help-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .example-hint {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛒 מחשבון מס מכירה</h1>
+            <p class="subtitle">חישוב מס מכירה מדויק לכל מיקום בארצות הברית</p>
+            {% if api_key_preview %}
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">
+                <span style="background: rgba(255,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; font-family: monospace;">
+                    🔑 {{ api_key_preview }}
+                </span>
+            </p>
+            {% endif %}
+        </header>
+
+        {% if not api_key_exists %}
+        <div class="api-banner">
+            <div class="api-banner-icon">🔑</div>
+            <div class="api-banner-content">
+                <div class="api-banner-title">נדרש API Key להפעלת המערכת</div>
+                <div class="api-banner-text">
+                    כדי להשתמש במחשבון, יש להזין API Key מ-API Ninjas.
+                    ההרשמה חינמית ומהירה!
+                </div>
+                <a href="/api-key-setup" class="api-banner-btn">
+                    <span>🔑</span>
+                    הזן API Key
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <form id="taxForm">
+                <div class="form-group">
+                    <label for="zip_code">
+                        <span class="icon">📍</span>
+                        מיקוד (ZIP Code)
+                    </label>
+                    <input 
+                        type="text" 
+                        id="zip_code" 
+                        name="zip_code" 
+                        placeholder="לדוגמה: 10001" 
+                        maxlength="5"
+                        pattern="[0-9]{5}"
+                        required
+                    >
+                    <div class="example-hint">
+                        💡 הזן מיקוד בן 5 ספרות מארצות הברית
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">
+                        <span class="icon">💵</span>
+                        סכום הרכישה (דולר)
+                    </label>
+                    <input 
+                        type="number" 
+                        id="amount" 
+                        name="amount" 
+                        placeholder="לדוגמה: 100.00" 
+                        min="0.01" 
+                        step="0.01"
+                        required
+                    >
+                    <div class="example-hint">
+                        💡 הזן את סכום הרכישה לפני מס
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <span class="icon">🧮</span>
+                    חשב מס מכירה
+                </button>
+            </form>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>מחשב...</p>
+        </div>
+
+        <div id="error" class="alert alert-error hidden"></div>
+
+        <div id="results" class="card results hidden">
+            <h2>📊 תוצאות החישוב</h2>
+            
+            <div class="result-section">
+                <h3>📍 פרטי המיקום</h3>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="label">מיקום:</span>
+                        <span class="value" id="result-location"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מיקוד:</span>
+                        <span class="value" id="result-zip"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">סכום רכישה:</span>
+                        <span class="value" id="result-amount"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>📈 שיעורי מס</h3>
+                <div class="result-grid">
+                    <div class="result-item highlight-total">
+                        <span class="label">שיעור מס כולל:</span>
+                        <span class="value large" id="result-total-rate"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מס מדינתי:</span>
+                        <span class="value" id="result-state-rate"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מס מחוז:</span>
+                        <span class="value" id="result-county-rate"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מס עירוני:</span>
+                        <span class="value" id="result-city-rate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>💰 סכומי מס</h3>
+                <div class="result-grid">
+                    <div class="result-item highlight">
+                        <span class="label">סך המס:</span>
+                        <span class="value large" id="result-total-tax"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מס מדינתי:</span>
+                        <span class="value" id="result-state-tax"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מס מחוז:</span>
+                        <span class="value" id="result-county-tax"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">מס עירוני:</span>
+                        <span class="value" id="result-city-tax"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section total-section">
+                <h3>✨ סיכום</h3>
+                <div class="result-grid">
+                    <div class="result-item highlight-success">
+                        <span class="label">סכום כולל לתשלום:</span>
+                        <span class="value large" id="result-total-amount"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>מופעל על ידי <a href="https://api-ninjas.com" target="_blank">API Ninjas</a></p>
+            <p>
+                <a href="/api-key-setup" class="help-link">
+                    <span>🔑</span>
+                    הגדר API Key
+                </a>
+            </p>
+            <p class="disclaimer">⚠️ התוצאות הן אינדיקטיביות בלבד. שיעורי המס עשויים להשתנות</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('taxForm');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        const results = document.getElementById('results');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // הסתרת תוצאות קודמות והצגת loading
+            results.classList.add('hidden');
+            error.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            // איסוף נתונים מהטופס
+            const formData = {
+                zip_code: document.getElementById('zip_code').value,
+                amount: document.getElementById('amount').value
+            };
+
+            try {
+                const response = await fetch('/calculate-sales-tax', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // הצגת תוצאות
+                    displayResults(data.data);
+                    results.classList.remove('hidden');
+                    // גלילה לתוצאות
+                    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    // הצגת שגיאה
+                    showError(data.error);
+                }
+            } catch (err) {
+                showError('שגיאת תקשורת: ' + err.message);
+            } finally {
+                loading.classList.add('hidden');
+            }
+        });
+
+        function displayResults(data) {
+            document.getElementById('result-location').textContent = data.location;
+            document.getElementById('result-zip').textContent = data.zip_code;
+            document.getElementById('result-amount').textContent = data.amount;
+            document.getElementById('result-total-rate').textContent = data.total_rate;
+            document.getElementById('result-state-rate').textContent = data.state_rate;
+            document.getElementById('result-county-rate').textContent = data.county_rate;
+            document.getElementById('result-city-rate').textContent = data.city_rate;
+            document.getElementById('result-total-tax').textContent = data.total_tax;
+            document.getElementById('result-state-tax').textContent = data.state_tax;
+            document.getElementById('result-county-tax').textContent = data.county_tax;
+            document.getElementById('result-city-tax').textContent = data.city_tax;
+            document.getElementById('result-total-amount').textContent = data.total_amount;
+        }
+
+        function showError(message) {
+            error.textContent = '❌ ' + message;
+            error.classList.remove('hidden');
+        }
+
+        // וידוא שהמיקוד הוא רק מספרים
+        const zipInput = document.getElementById('zip_code');
+        zipInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 5);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+# 📋 Cursor Rules Template — תבנית לפרויקט חדש
+# העתק את הקובץ הזה ל-.cursorrules בתיקיית הפרויקט
+
+# ================================================
+# 🎯 PROJECT: [PROJECT_NAME]
+# 📅 Created: [DATE]
+# 📌 Global Standards Version: 1.0.0
+# ================================================
+
+## ⚠️ MANDATORY FIRST STEPS — חובה בהתחלת כל סשן
+
+### 1. קרא את ה-Handoff האחרון
+```
+ACTION: קרא את docs/SESSION_HANDOFF.md
+PURPOSE: להבין מה קרה בסשן הקודם ומאיפה להמשיך
+```
+
+### 2. הבן את המטרה
+```
+ACTION: שאל את המשתמש מה המטרה של הסשן הזה
+PURPOSE: להתמקד במשימה הנכונה
+```
+
+### 3. עדכן Handoff בסוף
+```
+ACTION: לפני סיום, עדכן את docs/SESSION_HANDOFF.md
+PURPOSE: לשמור המשכיות לסשן הבא
+```
+
+---
+
+## 🎨 Design System Rules — כללי עיצוב
+
+### ✅ תמיד השתמש ב-CSS Variables:
+```css
+/* נכון */
+color: var(--primary-color);
+background: var(--surface-color);
+padding: var(--spacing-md);
+```
+
+### ❌ לעולם לא hardcode:
+```css
+/* לא נכון! */
+color: #3498db;
+background: white;
+padding: 16px;
+```
+
+### CSS Variables זמינים:
+- `--primary-color` — צבע ראשי
+- `--surface-color` — רקע כרטיסים
+- `--background-color` — רקע כללי
+- `--text-color` — טקסט ראשי
+- `--text-secondary` — טקסט משני
+- `--border-color` — גבולות
+- `--spacing-xs`, `--spacing-sm`, `--spacing-md`, `--spacing-lg`, `--spacing-xl`
+
+---
+
+## 📁 Project Structure — מבנה הפרויקט
+
+```
+[PROJECT_NAME]/
+├── .cursorrules              ← הקובץ הזה
+├── AI_AGENT_README.md        ← מידע מהיר ל-AI
+├── PROJECT_README.md         ← איך מריצים ותורמים
+├── [project]-workspace.code-workspace
+│
+├── worktrees/                ← סביבות עבודה
+│   └── [service]-work/
+│
+├── scripts/                  ← סקריפטים
+│   ├── dev.sh
+│   ├── quality.sh
+│   ├── session-start.sh
+│   └── session-end.sh
+│
+└── docs/                     ← תיעוד
+    ├── SESSION_HANDOFF.md
+    └── sessions/
+```
+
+---
+
+## 🔧 Project-Specific Rules — כללים ספציפיים לפרויקט
+
+### Tech Stack
+- **Backend:** [FastAPI / Node.js / ...]
+- **Frontend:** [React / Vue / Flutter / ...]
+- **Database:** [PostgreSQL / MongoDB / ...]
+
+### Key Files
+- Development Guidelines: [path]
+- API Routes: [path]
+- Database Models: [path]
+
+### Critical Rules
+1. [כלל קריטי 1]
+2. [כלל קריטי 2]
+3. [כלל קריטי 3]
+
+---
+
+## 📊 API Response Format — פורמט תגובות API
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Success message"
+}
+```
+
+---
+
+## 🌍 Multi-language Support — תמיכה רב-לשונית
+
+אם הפרויקט תומך במספר שפות:
+```typescript
+const translations = {
+  he: { title: "כותרת בעברית" },
+  en: { title: "Title in English" },
+  ar: { title: "العنوان بالعربية" }
+};
+```
+
+---
+
+## ✅ Session End Checklist — צ'קליסט לסיום סשן
+
+- [ ] עדכנתי את `docs/SESSION_HANDOFF.md`
+- [ ] בדקתי שהשינויים עובדים
+- [ ] אין שגיאות ב-console
+- [ ] הקבצים נשמרו
+- [ ] [הוסף בדיקות ספציפיות לפרויקט]
+
+---
+
+## 🔗 References — קישורים
+
+- [Global Standards](/.global-config/)
+- [Quick Start](/.global-config/CURSOR_QUICK_START.md)
+- [Architecture Spec](/.global-config/PROJECT_ARCHITECTURE_SPEC.md)
+
+---
+
+# 📌 END OF TEMPLATE
+# התאם את הקובץ הזה לצרכי הפרויקט שלך
+

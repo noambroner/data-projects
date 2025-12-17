@@ -1,0 +1,11 @@
+# העתק קובץ זה ל-.env וערוך את ה-API Key
+
+API_NINJAS_KEY=your_api_key_here
+
+# איך לקבל API Key:
+# 1. גש ל-https://api-ninjas.com
+# 2. הירשם (חינם!)
+# 3. העתק את ה-API Key שלך מהפרופיל
+# 4. החלף את 'your_api_key_here' למעלה ב-API Key האמיתי
+# 5. שמור קובץ זה בשם .env (ללא סיומת!)
+

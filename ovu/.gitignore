@@ -1,0 +1,27 @@
+# Worktrees - managed separately
+worktrees/
+
+# Dev repos - managed separately
+dev/
+
+# Tests output
+tests/coverage/
+tests/reports/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Backup files
+*.backup
+*.bak
+backup-*.tar.gz
+

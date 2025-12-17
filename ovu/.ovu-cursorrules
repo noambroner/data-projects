@@ -1,0 +1,202 @@
+# 📋 OVU Project — Cursor Rules
+# ================================================
+# 🎯 PROJECT: OVU (User & Admin Management System)
+# 📅 Created: 2025-12-13
+# 📌 Global Standards Version: 1.0.0
+# ================================================
+
+## ⚠️ MANDATORY FIRST STEPS — חובה בהתחלת כל סשן!
+
+### 1. 📖 קרא את ה-Handoff האחרון
+```
+ACTION: קרא את docs/SESSION_HANDOFF.md
+PURPOSE: להבין מה קרה בסשן הקודם ומאיפה להמשיך
+```
+
+### 2. 📋 קרא את ה-Dev Guidelines (אם עובדים על ULM)
+```
+ACTION: קרא https://ulm-rct.ovu.co.il/dev-guidelines
+OR: קרא ../worktrees/ulm-work/frontend/react/src/components/DevelopmentGuidelines/DevelopmentGuidelines.tsx
+PURPOSE: להבין את כללי הפיתוח
+```
+
+### 3. 🎯 הבן את המטרה
+```
+ACTION: שאל את המשתמש מה המטרה של הסשן
+PURPOSE: להתמקד במשימה הנכונה
+```
+
+### 4. 📝 עדכן Handoff בסוף
+```
+ACTION: לפני סיום, עדכן את docs/SESSION_HANDOFF.md
+PURPOSE: לשמור המשכיות לסשן הבא
+```
+
+---
+
+## 🏗️ מבנה הפרויקט
+
+```
+OVU System (3 Services):
+
+🔐 ULM (User Login Manager)
+   - Backend: FastAPI + SQLAlchemy + PostgreSQL
+   - Frontend: React + Vite + TypeScript
+   - Mobile: Flutter
+   - Worktree: ../worktrees/ulm-work
+
+👤 AAM (Admin Area Manager)
+   - Base Server: FastAPI (https://base.aam.bflow.co.il)
+   - Admin Dashboard: FastAPI (https://aam.bflow.co.il)
+   - Role Installer: FastAPI (https://approleinstaller.aam.bflow.co.il)
+   - Worktree: ../worktrees/aam-work
+
+📦 Shared
+   - React Components: ../worktrees/shared-work/react-components
+   - Flutter Components: ../worktrees/shared-work/interface-resources
+   - Localization: ../worktrees/shared-work/localization
+   - Worktree: ../worktrees/shared-work
+```
+
+---
+
+## 🎨 Design System Rules — חובה!
+
+### ✅ תמיד השתמש ב-CSS Variables:
+```css
+.component {
+  background: var(--card-background);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-md);
+}
+```
+
+### ❌ לעולם לא hardcode:
+```css
+/* אסור! */
+background: #1a1a2e;
+color: white;
+padding: 16px;
+```
+
+### CSS Variables זמינים:
+```css
+/* Colors */
+--primary-color / --primary-blue    /* #2563eb */
+--background-color / --bg-color
+--surface-color / --card-background
+--text-color / --text-primary
+--text-secondary
+--border-color
+--hover-bg
+
+/* Spacing */
+--spacing-xs, --spacing-sm, --spacing-md, --spacing-lg, --spacing-xl
+```
+
+---
+
+## 🚀 Deployment Rules
+
+### ULM Frontend (CRITICAL!):
+```bash
+# ⚠️ Nginx serves ONLY from /public/!
+# Server: ploi@64.176.173.105
+
+# 1. Build
+cd ../worktrees/ulm-work/frontend/react && npm run build
+
+# 2. Upload
+scp -i ~/.ssh/ovu_key -r dist/* ploi@64.176.173.105:/home/ploi/ulm-rct.ovu.co.il/
+
+# 3. CRITICAL — Copy to public/
+ssh -i ~/.ssh/ovu_key ploi@64.176.173.105 "cp -rf /home/ploi/ulm-rct.ovu.co.il/*.html /home/ploi/ulm-rct.ovu.co.il/public/ && cp -rf /home/ploi/ulm-rct.ovu.co.il/assets/* /home/ploi/ulm-rct.ovu.co.il/public/assets/"
+```
+
+### ULM Backend:
+```bash
+# Server: ploi@64.176.171.223
+
+# 1. Upload
+scp -i ~/.ssh/ovu_key -r app/ ploi@64.176.171.223:/home/ploi/ovu-ulm/backend/
+
+# 2. Find & kill process
+ssh -i ~/.ssh/ovu_key ploi@64.176.171.223 "lsof -i :8001"
+ssh -i ~/.ssh/ovu_key ploi@64.176.171.223 "kill -9 [PID]"
+
+# 3. Restart
+ssh -i ~/.ssh/ovu_key ploi@64.176.171.223 "cd /home/ploi/ovu-ulm/backend && nohup venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8001 > /dev/null 2>&1 &"
+```
+
+---
+
+## 📊 API Response Format
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Success message"
+}
+```
+
+---
+
+## 🌍 Multi-language Support
+
+המערכת תומכת ב-3 שפות (חובה לתרגם כל טקסט UI!):
+```typescript
+const translations = {
+  he: { title: "כותרת בעברית" },
+  en: { title: "Title in English" },
+  ar: { title: "العنوان بالعربية" }
+};
+```
+
+---
+
+## 🔒 Security Rules
+
+- JWT Access Token: 15 minutes
+- Refresh Token: 7 days
+- Use `require_auth`, `require_admin`, `require_superadmin`
+- Never log sensitive data
+- Always validate user input
+
+---
+
+## ✅ Session End Checklist
+
+- [ ] עדכנתי את `docs/SESSION_HANDOFF.md`
+- [ ] בדקתי שהשינויים עובדים
+- [ ] אין שגיאות ב-console
+- [ ] הקבצים נשמרו
+- [ ] (אם deploy) ווידאתי ב-production
+
+---
+
+## 🔗 URLs — Production
+
+| Service | URL |
+|---------|-----|
+| ULM Frontend | https://ulm-rct.ovu.co.il |
+| ULM Backend | http://64.176.171.223:8001 |
+| ULM Dev Guidelines | https://ulm-rct.ovu.co.il/dev-guidelines |
+| ULM Dev Journal | https://ulm-rct.ovu.co.il/dev-journal |
+| AAM Base | https://base.aam.bflow.co.il |
+| AAM Admin | https://aam.bflow.co.il |
+| AAM Installer | https://approleinstaller.aam.bflow.co.il |
+
+---
+
+## 📖 References
+
+- [Global Quick Start](../.global-config/CURSOR_QUICK_START.md)
+- [Architecture Spec](../.global-config/PROJECT_ARCHITECTURE_SPEC.md)
+- [Handoff Template](../.global-config/SESSION_HANDOFF_TEMPLATE.md)
+
+---
+
+# END OF OVU CURSOR RULES
+

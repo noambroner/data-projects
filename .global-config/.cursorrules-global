@@ -1,0 +1,92 @@
+# 📋 כללי Cursor גלובליים — לכל הפרויקטים
+# Global Cursor Rules — For All Projects
+
+## 🎯 הוראה ראשונה (First Instruction)
+> **לפני כל פעולה — קרא את המדריך המהיר:**
+> [CURSOR_QUICK_START.md](./CURSOR_QUICK_START.md)
+
+---
+
+## 🔑 5 הכללים החשובים ביותר
+
+### 1. קריאת Handoff לפני התחלה
+**MUST:** בתחילת כל סשן, קרא `docs/SESSION_HANDOFF.md` (או הסשן האחרון ב־`docs/sessions/`)
+
+### 2. שמירת Handoff בסיום
+**MUST:** בסוף כל סשן, עדכן את `docs/SESSION_HANDOFF.md` עם:
+- מה עשינו
+- מה עובד
+- מה הצעד הבא
+
+### 3. עיצוב אחיד (Design System)
+**MUST:** השתמש תמיד ב־CSS Variables:
+```css
+/* ✅ נכון */
+color: var(--primary-color);
+background: var(--surface-color);
+
+/* ❌ לא נכון */
+color: #3498db;
+background: white;
+```
+
+### 4. מבנה תגובת API
+**MUST:** כל תגובת API במבנה:
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Success"
+}
+```
+
+### 5. תיעוד שינויים
+**MUST:** תעד כל שינוי משמעותי — החלטות, סיבות, השפעות
+
+---
+
+## 📁 מבנה פרויקט סטנדרטי
+
+```
+project/
+├── .cursorrules          ← כללים ספציפיים לפרויקט
+├── AI_AGENT_README.md    ← מידע מהיר ל־AI
+├── PROJECT_README.md     ← איך מריצים ותורמים
+├── worktrees/            ← סביבות עבודה מקבילות
+├── scripts/              ← סקריפטים (session-end, etc.)
+└── docs/
+    ├── SESSION_HANDOFF.md ← סיכום הסשן הנוכחי
+    └── sessions/          ← היסטוריית סשנים
+```
+
+---
+
+## ✅ רשימת בדיקה לסוף סשן
+
+- [ ] ה־Handoff מעודכן
+- [ ] השינויים נבדקו ועובדים
+- [ ] אין שגיאות ב־console
+- [ ] הקבצים נשמרו
+
+---
+
+## 🚫 מה לא לעשות (Never)
+
+- ❌ לא לעשות hardcode לצבעים
+- ❌ לא לדלג על עדכון ה־Handoff
+- ❌ לא להתחיל בלי לקרוא את הסשן הקודם
+- ❌ לא לשנות קבצים משותפים בלי לבדוק את ההשפעה
+
+---
+
+## 📖 מסמכים חשובים לקריאה
+
+1. **מדריך מהיר:** `CURSOR_QUICK_START.md`
+2. **תבנית Handoff:** `SESSION_HANDOFF_TEMPLATE.md`
+3. **מפרט מלא:** `PROJECT_ARCHITECTURE_SPEC.md`
+
+---
+
+**Version:** 1.0  
+**Updated:** 2025-12-13
+
