@@ -22,47 +22,48 @@
     }
   ],
   "settings": {
-    "dart.flutterSdkPath": "/home/noam/development/flutter",
-    "dart.sdkPath": "/home/noam/development/flutter/bin/cache/dart-sdk",
+    "dart.flutterSdkPath": "/opt/flutter",
+    "dart.sdkPath": "/opt/flutter/bin/cache/dart-sdk",
     "dart.checkForSdkUpdates": false,
     "dart.allowAnalytics": false,
-    
+
     "terminal.integrated.env.linux": {
-      "PATH": "/home/noam/development/flutter/bin:${env:PATH}"
+      "PATH": "/opt/flutter/bin:${env:PATH}"
     },
-    
+
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
-    
+
     "files.autoSave": "onFocusChange",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.exclude": {
-      "dev/": true
+      "dev/": true,
+      "worktrees/aam-work/shared/": true
     },
-    
+
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.suggest.autoImports": true,
-    
+
     "css.validate": true,
     "css.lint.unknownProperties": "warning",
-    
+
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
-    
+
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
-    
+
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
-    
+
     "workbench.editor.enablePreview": false,
     "workbench.startupEditor": "none",
-    
+
     "search.exclude": {
       "**/node_modules": true,
       "**/dist": true,
@@ -72,8 +73,13 @@
       "**/__pycache__": true,
       "**/.next": true,
       "**/coverage": true,
-      "dev/": true
-    }
+      "dev/": true,
+      "worktrees/aam-work/shared/": true
+    },
+
+    "dart.analysisExcludedFolders": [
+      "/home/noam/projects/ovu/worktrees/aam-work/shared"
+    ]
   },
   "extensions": {
     "recommendations": [
