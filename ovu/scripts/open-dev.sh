@@ -9,7 +9,12 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 echo "🚀 Opening OVU Development Environment"
 echo "======================================="
 
+# Run preflight sync check
+echo "🔄 Running git preflight..."
+"$PROJECT_DIR/scripts/git-preflight.sh"
+
 # Open main workspace
+echo ""
 echo "📁 Opening main workspace..."
 cursor "$PROJECT_DIR/ovu-workspace.code-workspace" &
 
