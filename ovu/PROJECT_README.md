@@ -1,7 +1,7 @@
 # 🚀 OVU — User & Admin Management System
 
-**Created:** 2025-12-13  
-**Global Standards Version:** 1.0.0  
+**Created:** 2025-12-13
+**Global Standards Version:** 1.0.0
 **Status:** Production Ready 🟢
 
 ---
@@ -84,11 +84,14 @@ OVU System
 |---------|-----|
 | **ULM Frontend** | https://ulm-rct.ovu.co.il |
 | **ULM Backend** | http://64.176.171.223:8001 |
-| **Dev Guidelines** | https://ulm-rct.ovu.co.il/dev-guidelines |
-| **Dev Journal** | https://ulm-rct.ovu.co.il/dev-journal |
-| **AAM Base** | https://base.aam.bflow.co.il |
-| **AAM Admin** | https://aam.bflow.co.il |
-| **AAM Installer** | https://approleinstaller.aam.bflow.co.il |
+| **ULM Dev Guidelines** | https://ulm-rct.ovu.co.il/dev-guidelines |
+| **ULM Dev Journal** | https://ulm-rct.ovu.co.il/dev-journal |
+| **AAM Frontend** | https://aam-rct.ovu.co.il |
+| **AAM Backend** | http://64.176.171.223:8002 |
+| **AAM Dev Guidelines** | https://aam-rct.ovu.co.il/dev-guidelines |
+| **SAM Frontend** | https://sam.ovu.co.il |
+| **SAM Backend** | http://64.176.171.223:8003 |
+| **SAM Dev Guidelines** | https://sam.ovu.co.il/dev-guidelines |
 
 ---
 
