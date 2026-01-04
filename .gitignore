@@ -15,6 +15,9 @@ ovu/worktrees/
 # Shared symlink (points to worktree)
 shared
 
+# Osherad project (independent project)
+osherad/
+
 # =============================================================================
 # Python
 # =============================================================================
