@@ -1,0 +1,82 @@
+---
+description: SiteGround SSH connection and project context for mflow.co.il
+globs:
+alwaysApply: true
+---
+
+# Mflow Website - Server & Project Context
+
+## Quick Reference
+
+- **Site URL:** https://mflow.co.il
+- **App URL:** https://my.mflow.co.il
+- **Status:** Coming Soon page active
+- **Stack:** WordPress + WooCommerce on SiteGround, Cloudflare CDN
+
+## SSH Connection Details
+
+- **Hostname:** giowm1272.siteground.biz
+- **Username:** u3024-8wzeneeacbvg
+- **Port:** 18765
+- **SSH Key:** ~/.ssh/mflow-siteground
+- **Key Password:** 2$4n8vQwc,7e
+
+## Quick Commands
+
+### Connect to server:
+
+```bash
+ssh -i ~/.ssh/mflow-siteground -p 18765 u3024-8wzeneeacbvg@giowm1272.siteground.biz
+```
+
+### Upload files:
+
+```bash
+scp -i ~/.ssh/mflow-siteground -P 18765 <local-file> u3024-8wzeneeacbvg@giowm1272.siteground.biz:~/www/mflow.co.il/public_html/
+```
+
+### View htaccess:
+
+```bash
+ssh -p 18765 user@server "cat ~/www/mflow.co.il/public_html/.htaccess"
+```
+
+## Important Paths (Server)
+
+| Path                                             | Description          |
+| ------------------------------------------------ | -------------------- |
+| `~/www/mflow.co.il/public_html/`                 | Web root (WordPress) |
+| `~/www/mflow.co.il/public_html/.htaccess`        | Apache config        |
+| `~/www/mflow.co.il/public_html/coming-soon.html` | Landing page         |
+| `~/www/mflow.co.il/public_html/wp-config.php`    | WordPress config     |
+
+**⚠️ Note:** `~/public_html/` is NOT the web root! Use `~/www/mflow.co.il/public_html/`
+
+## Cloudflare Settings
+
+- **SSL Mode:** Full (required - do not change to Flexible!)
+- **DNS:** All A records proxied (orange cloud)
+- **Cache:** Purge after deploying changes
+
+## After Deploying Changes
+
+Always clear cache in this order:
+
+1. WordPress Admin → SG Optimizer → Purge Cache
+2. Cloudflare Dashboard → Caching → Purge Everything
+
+## Project Files (Local)
+
+| File                    | Purpose                  |
+| ----------------------- | ------------------------ |
+| `README.md`             | Project overview         |
+| `HANDOFF.md`            | Session handoff document |
+| `coming-soon.html`      | Landing page source      |
+| `docs/SESSION_LOG_*.md` | Development logs         |
+
+## Current Site Features
+
+- Responsive Coming Soon page (mobile + desktop)
+- Login button → https://my.mflow.co.il/v1/login
+- Register button → https://my.mflow.co.il/v1/register
+- wp-admin access preserved at /wp-admin

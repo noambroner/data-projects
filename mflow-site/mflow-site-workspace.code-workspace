@@ -1,0 +1,99 @@
+{
+  "folders": [
+    {
+      "name": "mflow-site",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.suggest.autoImports": true,
+    
+    "css.validate": true,
+    "css.lint.unknownProperties": "warning",
+    
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "black",
+    
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    
+    "workbench.editor.enablePreview": false,
+    "workbench.startupEditor": "none",
+    
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/.git": true,
+      "**/venv": true,
+      "**/__pycache__": true,
+      "**/.next": true,
+      "**/coverage": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "bradlc.vscode-tailwindcss",
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "dart-code.flutter",
+      "dart-code.dart-code",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense",
+      "usernamehw.errorlens",
+      "gruntfuggly.todo-tree",
+      "eamodio.gitlens"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "🚀 Dev — Start All",
+        "type": "shell",
+        "command": "./scripts/dev.sh",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "✅ Quality — Lint & Format",
+        "type": "shell",
+        "command": "./scripts/quality.sh",
+        "problemMatcher": []
+      },
+      {
+        "label": "🧪 Test — Run All",
+        "type": "shell",
+        "command": "./scripts/test.sh",
+        "problemMatcher": []
+      },
+      {
+        "label": "📝 Session — End",
+        "type": "shell",
+        "command": "./scripts/session-end.sh",
+        "problemMatcher": []
+      }
+    ]
+  }
+}
+
